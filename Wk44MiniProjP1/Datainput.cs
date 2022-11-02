@@ -12,7 +12,7 @@ namespace Wk44MiniProj
     {
         int Tprice = 0;
 
-        public void Input(List<Product> prodList)
+        public static void Input(List<Product> prodList)
         {
             String Category; // Declaring variables for passing arguments
             String ProdName;

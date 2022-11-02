@@ -3,8 +3,7 @@
 using Wk44MiniProj;
 using Wk44MiniProjP1;
 
-int Tprice = 0;
-string exit;
+string Select;
 Datainput data = new Datainput();
 
 List<Product> ProdList = new List<Product> (); //Creating list for product details
@@ -16,19 +15,19 @@ do
     Console.WriteLine("------------------------------------------------------------------------------------");
     Console.ForegroundColor = ConsoleColor.Blue;
     Console.Write("Enter P to update product details | Enter S for search product | Enter Q to quit: ");
-    exit = Console.ReadLine().ToLower();
+    Select = Console.ReadLine().ToLower();
     Console.ResetColor();
     Console.WriteLine("------------------------------------------------------------------------------------");
 
-    if (exit == "q")
+    if (Select == "q")
     {
         break;
     }
-    else if (exit == "p")
+    else if (Select == "p")
     {
-        data.Input(ProdList); //Calling method to enter product data
+        Datainput.Input(ProdList); //Calling method to enter product data
     }
-    else if (exit == "s")
+    else if (Select == "s")
     {
         data.Search(ProdList); //Calling method to search product 
     }
@@ -42,7 +41,7 @@ do
   
 
 
-} while (exit != "q");
+} while (Select != "q");
 
 
 Console.ReadLine();
