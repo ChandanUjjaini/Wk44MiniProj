@@ -4,34 +4,47 @@ using Wk44MiniProj;
 using Wk44MiniProjP1;
 
 int Tprice = 0;
+string exit;
 Datainput data = new Datainput();
 
 List<Product> ProdList = new List<Product> (); //Creating list for product details
-data.Input(ProdList); //Calling method to enter product data
 
-List<Product> sortedProd = ProdList.OrderBy(ProdList => ProdList.PPrice).ToList();
 
-//Creating product menu header
-Console.WriteLine("-----------------------------------------------");
 
-Console.WriteLine("Product Type".PadRight(20) + "Product Name".PadRight(20) + "Price");
-Console.WriteLine("-----------------------------------------------");
-
-//Reading and printing product details in console
-
-Console.WriteLine("-----------------------------------------------");
-
-foreach (Product product in sortedProd)
+do
 {
-    Console.WriteLine(product.Cat.PadRight(20) + product.PName.PadRight(20) + product.PPrice);
-    int buffer = int.Parse(product.PPrice);
+    Console.WriteLine("------------------------------------------------------------------------------------");
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.Write("Enter P to update product details | Enter S for search product | Enter Q to quit: ");
+    exit = Console.ReadLine().ToLower();
+    Console.ResetColor();
+    Console.WriteLine("------------------------------------------------------------------------------------");
 
-    Tprice += buffer;
-}
+    if (exit == "q")
+    {
+        break;
+    }
+    else if (exit == "p")
+    {
+        data.Input(ProdList); //Calling method to enter product data
+    }
+    else if (exit == "s")
+    {
+        data.Search(ProdList); //Calling method to search product 
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Please enter valid selection");
+        Console.ResetColor();
 
-Console.WriteLine("-----------------------------------------------");
-Console.WriteLine("Total Amount:".PadLeft(40) + Tprice);
-Console.WriteLine("-----------------------------------------------");
+    }  
+  
+
+
+} while (exit != "q");
+
+
 Console.ReadLine();
 
 

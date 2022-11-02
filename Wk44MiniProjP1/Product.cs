@@ -8,7 +8,7 @@ namespace Wk44MiniProjP1
 {
     internal class Product //Class for product
     {
-        public Product(string cat, string pName, string pPrice)
+        public Product(string cat, string pName, int pPrice)
         {
             Cat = cat;
             PName = pName;
@@ -17,6 +17,6 @@ namespace Wk44MiniProjP1
 
         public string Cat { get; set; }
         public string PName { get; set; }
-        public string PPrice { get; set; }
+        public int PPrice { get; set; }
     }
 }

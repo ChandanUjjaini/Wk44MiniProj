@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,37 +10,28 @@ namespace Wk44MiniProj
 {
     internal class Datainput
     {
+        int Tprice = 0;
+
         public void Input(List<Product> prodList)
         {
             String Category; // Declaring variables for passing arguments
             String ProdName;
-            String ProdPrice;
-            string exit;
-            //Do while loop to update product details to list
-            do
-            {
-                Console.WriteLine("-------------------------------------------------------");
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write("Enter P to update product details | Enter Q to quit: ");
-                exit = Console.ReadLine().ToLower();
-                Console.ResetColor();
-                Console.WriteLine("-------------------------------------------------------");
-
-
-                if (exit == "q")
-                {
-                    break;
-                }
-                else if (exit == "p")
-                {
+            String Price;
+            int ProdPrice;
+            int Tprice = 0;
+            
+            
+                   {
                     Console.Write("Please Enter Product Category:");
                     Category = Console.ReadLine(); //Product details input
                     Console.Write("Please Enter Product Name:");//Product details input
                     ProdName = Console.ReadLine();
-                repeat:
+                    repeat:
                     Console.Write("Please Enter Product Price:");//Product details input
-                    ProdPrice = Console.ReadLine();
-                    bool chk = int.TryParse(ProdPrice, out int num);
+                    Price = Console.ReadLine();
+                   
+                    bool chk = int.TryParse(Price, out int num);
+                     
                     if (!chk)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -47,31 +39,73 @@ namespace Wk44MiniProj
                         Console.ResetColor();
                         goto repeat;
                     }
-
+                    ProdPrice = Convert.ToInt32(Price);
                     Console.WriteLine("-------------------------------------------------------------------------------");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Product Added sucessfully");//Product details update message
-                    Console.ResetColor();
-                    prodList.Add(new Product(Category, ProdName, ProdPrice));//Adding product details to list using class
+                    //Adding product details to list using class
+                    prodList.Add(new Product(Category, ProdName, ProdPrice));
 
+                    Console.Clear();
+                    List<Product> sortedProd = prodList.OrderBy(ProdList => ProdList.PPrice).ToList();
+
+                    //Creating product menu header
+                    Console.WriteLine("-----------------------------------------------");
+
+                    Console.WriteLine("Product Type".PadRight(20) + "Product Name".PadRight(20) + "Price");
+                    Console.WriteLine("-----------------------------------------------");
+
+                    //Reading and printing product details in console
+
+                    Console.WriteLine("-----------------------------------------------");
+
+
+
+                    foreach (Product product in sortedProd)
+                    {
+                        Console.WriteLine(product.Cat.PadRight(20) + product.PName.PadRight(20) + product.PPrice);
+                        //int buffer = int.Parse(product.PPrice);
+
+                        Tprice += product.PPrice;
+                    }
+
+                    Console.WriteLine("-----------------------------------------------");
+                    Console.WriteLine("Total Amount:".PadLeft(40) + Tprice);
+                    Console.WriteLine("-----------------------------------------------");
+                    }         
+                     
+            
+        }
+
+        public void Search(List<Product> prodList)
+        {
+            Console.Write("Please enter Product name:");
+            string comp = Console.ReadLine().ToLower();
+            List<Product> sortedProd = prodList.OrderBy(ProdList => ProdList.PPrice).ToList(); //Print header
+            Console.Clear();
+            Console.WriteLine("-----------------------------------------------");
+            Console.WriteLine("Product Type".PadRight(20) + "Product Name".PadRight(20) + "Price");
+            Console.WriteLine("-----------------------------------------------");
+
+            foreach (Product product in sortedProd) // Loop to search product details
+            {
+                if (comp == product.PName.ToLower()) // Comparing the entered product in loop
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;//Highlighting color to searched string
+                    Console.WriteLine(product.Cat.PadRight(20) + product.PName.PadRight(20) + product.PPrice);
+                    Console.ResetColor();
+                    Tprice += product.PPrice; // Summation of prices of products
                 }
                 else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Please enter valid selection");
-                    Console.ResetColor();
-                    continue;
+                {//Printing product details
+                    Console.WriteLine(product.Cat.PadRight(20) + product.PName.PadRight(20) + product.PPrice);
+                    Tprice += product.PPrice;// Summation of prices of products
                 }
+                
+            }
 
+            Console.WriteLine("-----------------------------------------------");
+            Console.WriteLine("Total Amount:".PadLeft(40) + Tprice);
+            Console.WriteLine("-----------------------------------------------");
 
-
-
-
-
-
-            } while ((exit != "q") || (exit != "Q")); // Verifying condition to quit
-
-            Console.Clear();
         }
     }
 }
